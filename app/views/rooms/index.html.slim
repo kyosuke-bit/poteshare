@@ -1,0 +1,34 @@
+h1 ルーム一覧
+
+= search_form_for @q, class: 'mb-5' do |f|
+    .form-gorup.row
+        = f.label :adress_cont, 'エリア', class: 'col-sm-2 col-form-label'
+        .col-sm-10
+            = f.search_field :adress_cont, class: 'form-control'
+    .form-gorup.row
+        = f.label :room_introduction_cont, 'キーワード', class: 'col-sm-2 col-form-label'
+        .col-sm-10
+            = f.search_field :room_introduction_cont, class: 'form-control'
+    = f.submit class: 'btn btn-outline-primary'
+
+.mb-3
+table.table.table-hover
+    thead.thead-default
+        tr
+            th= Room.human_attribute_name(:image)
+            th= Room.human_attribute_name(:room_introduction)
+            th= Room.human_attribute_name(:room_name)
+            th= Room.human_attribute_name(:price)
+            th= Room.human_attribute_name(:user_id)
+            th
+    tbody
+        - @rooms.each do |room|
+          tr
+            td= link_to image_tag(room.image), room
+            td= room.room_introduction
+            td= room.room_name
+            td= room.price
+            td= room.user_id
+            td
+              = link_to '編集', edit_room_path(room), class: 'btn btn-primary mr-3'
+              = link_to '削除', room, method: :delete, data: { confirm: "「#{room.room_name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'

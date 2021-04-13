@@ -1,0 +1,25 @@
+h1 登録済みルーム一覧
+
+.mb-3
+table.table.table-hover
+    thead.thead-default
+        tr
+            th= Room.human_attribute_name(:image)
+            th= Room.human_attribute_name(:room_name)
+            th= Room.human_attribute_name(:room_introduction)
+            th= Room.human_attribute_name(:price)
+            th= Room.human_attribute_name(:created_at)
+            th= Room.human_attribute_name(:user_id)
+            th
+    tbody
+        - @rooms.each do |room|
+          tr
+            td= link_to image_tag(room.image), room
+            td= link_to (room.room_name), room
+            td= room.room_introduction
+            td= room.price
+            td= room.created_at
+            td= room.user_id
+            td
+              = link_to '編集', edit_room_path(room), class: 'btn btn-primary mr-3'
+              = link_to '削除', room, method: :delete, data: { confirm: "「#{room.room_name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
