@@ -10,19 +10,19 @@ h1 予約内容確認
     table.table.table-hover
         tbody
             tr
-                th= Reservation.human_attribute_name(:start_date)
+                th= Reservation.human_attribute_name(:開始日)
                 td= @reservation.start_date
                 = f.hidden_field :start_date
             tr
-                th= Reservation.human_attribute_name(:end_date)
+                th= Reservation.human_attribute_name(:終了日)
                 td= @reservation.end_date
                 = f.hidden_field :end_date
             tr
-                th= Reservation.human_attribute_name(:number_of_people)
+                th= Reservation.human_attribute_name(:人数)
                 td= @reservation.number_of_people
                 = f.hidden_field :number_of_people
             tr
-                th= Reservation.human_attribute_name(:total_amount)
+                th= Reservation.human_attribute_name(:合計金額)
                 td= @reservation.total_amount
                 = f.hidden_field :total_amount
 

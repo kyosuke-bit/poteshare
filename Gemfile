@@ -60,3 +60,6 @@ gem 'html2slim'
 
 gem 'bootstrap'
 gem 'ransack'
+
+gem 'rails-i18n'
+gem 'pry-rails'

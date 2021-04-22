@@ -1,8 +1,6 @@
 class RoomsController < ApplicationController
 
   def index
-    # @rooms = Room.all
-    @q = Room.all.ransack(params[:q])
     @rooms = @q.result(distinct: true).recent
   end
   

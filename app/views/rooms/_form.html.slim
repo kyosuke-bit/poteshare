@@ -3,21 +3,26 @@
      - room.errors.full_messages.each do |message|
        li= message
 
-= form_with model: room, local: true do |f|
+= form_with(model: room, local: true) do |f|
     .form_group
-        = f.label :room_name ,"ルーム名"
+        = f.label :room_name,"ルーム名"
+        p.badge.badge-danger 必須
         = f.text_field :room_name, class: 'form-control', id: 'room_room_name'
     .form_group
         = f.label :room_introduction, "ルーム紹介"
+        p.badge.badge-danger 必須
         = f.text_area :room_introduction, rows: 5, class: 'form-control', id: 'room_room_introduction'
     .form_group
-        = f.label :price ,"価格"
+        = f.label :price ,"料金"
+        p.badge.badge-danger 必須
         = f.text_field :price, class: 'form-control', id: 'room_price'
     .form_group
         = f.label :adress ,"住所"
+        p.badge.badge-danger 必須
         = f.text_field :adress, class: 'form-control', id: 'room_adress'
     .form_group
         = f.label :image ,"ルーム画像"
-        = f.file_field :image, class: 'form-control'
+        p.badge.badge-danger 必須
+        = f.file_field :image, class: 'form-control', id: 'image'
 
     = f.submit nil, class: 'btn btn-primary'

@@ -1,0 +1,36 @@
+.container.my-5
+  h2.py-4.text-dark
+    | 検索結果:
+    = @rooms.count 
+    |件
+  
+  /- @rooms.each do |room|
+     .row.row-cols-1.row-cols-md-3
+        .col.mb-4
+          .card
+            img.card-img-top.px-3.mb-3
+                = link_to image_tag(room.image), room, class: "room_image"
+            .card-body
+              h5.card-title
+                = room.room_introduction
+              p.card-text
+                = room.room_name
+              p.card-text.text-right
+               | ¥
+               = room.price
+
+.mb-3
+table.table.table-hover
+    thead.thead-defaultz
+        tr
+            th= Room.human_attribute_name(:ルーム画像)
+            th= Room.human_attribute_name(:ルーム紹介)
+            th= Room.human_attribute_name(:ルーム名)
+            th= Room.human_attribute_name(:料金)
+    tbody
+        - @rooms.each do |room|
+            tr
+                td= link_to image_tag(room.image), room
+                td= room.room_introduction
+                td= room.room_name
+                td= room.price

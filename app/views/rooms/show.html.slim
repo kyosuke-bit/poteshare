@@ -10,47 +10,47 @@ h1 ルームの詳細
 table.table.table-hover
     tbody
         tr
-            th= Room.human_attribute_name(:image)
+            th= Room.human_attribute_name(:ルーム画像)
             td= image_tag @room.image if @room.image.attached?
         tr
-            th= Room.human_attribute_name(:room_name)
+            th= Room.human_attribute_name(:ルーム名)
             td= @room.room_name
         tr
-            th= Room.human_attribute_name(:adress)
+            th= Room.human_attribute_name(:住所)
             td= @room.adress
         tr
-            th= Room.human_attribute_name(:room_introduction)
+            th= Room.human_attribute_name(:ルーム紹介)
             td= simple_format(h(@room.room_introduction), {}, sanitize: false, wrapper_tag: "div")
         tr
-            th= Room.human_attribute_name(:price)
+            th= Room.human_attribute_name(:料金)
             td= @room.price
             
 = link_to '編集', edit_room_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @room, method: :delete, data: { confirm: "#「#{@room.room_name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
 
-
-= form_with model: @reservation, local: true, url: confirm_new_reservation_path do |f|
-    .form-group
-        = f.label :start_date
-        = f.date_field :start_date, class: 'form-control', id: 'reservations_name'
-    .form-group
-        = f.label :end_date
-        = f.date_field :end_date, class: 'form-control', id: 'reservations_end_date'
-    .form-group
-        = f.label :number_of_people
-        = f.text_field :number_of_people, class: 'form-control', id: 'reservations_number_of_people'
-    .form-group
-        = f.label :price
-        = f.text_field :price, value: @room.price, :readonly => true, class: 'form-control', id: 'reservations_price'
-    .form-group
-        = f.hidden_field :user_id, value: @user.id
-    .form-group
-        = f.hidden_field :room_id, value: @room.id
-    .form-group
-        = f.hidden_field :room_name, value: @room.room_name
-    .form-group
-        = f.hidden_field :room_introduction, value: @room.room_introduction
-    .form-group
-        = f.hidden_field :image, value: @room.image
-
-    = f.submit '予約する', class: 'btn btn-primary'
+.col-md-4
+    = form_with model: @reservation, local: true, url: confirm_new_reservation_path do |f|
+        .form-group
+            = f.label :開始日
+            = f.date_field :start_date, class: 'form-control', id: 'reservations_name'
+        .form-group
+            = f.label :終了日
+            = f.date_field :end_date, class: 'form-control', id: 'reservations_end_date'
+        .form-group
+            = f.label :人数
+            = f.text_field :number_of_people, class: 'form-control', id: 'reservations_number_of_people'
+        .form-group
+            = f.label :料金
+            = f.text_field :price, value: @room.price, :readonly => true, class: 'form-control', id: 'reservations_price'
+        .form-group
+            = f.hidden_field :user_id, value: @user.id
+        .form-group
+            = f.hidden_field :room_id, value: @room.id
+        .form-group
+            = f.hidden_field :room_name, value: @room.room_name
+        .form-group
+            = f.hidden_field :room_introduction, value: @room.room_introduction
+        .form-group
+            = f.hidden_field :image, value: @room.image
+    
+        = f.submit '予約する', class: 'btn btn-primary'
