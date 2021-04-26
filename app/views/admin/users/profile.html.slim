@@ -3,6 +3,7 @@
 h1 プロフィール
 
 = form_with model: @users, local: true do |f|
+
   = image_tag @user.icon if @user.icon.attached?
   .form-group
     = f.label :icon, 'アイコン'

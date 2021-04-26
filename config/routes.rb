@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
-  get 'sessions/new'
+  # get 'sessions/new'
   
   namespace :admin do
     resources :users
@@ -25,9 +25,12 @@ Rails.application.routes.draw do
   end
 
   
-  get '/users/account', to: 'admin/users#account'
-  get '/users/account/edit', to: 'admin/users#account_edit'
-  post '/users/account/edit', to: 'admin/users#account_update'
+  # get '/users/account', to: 'admin/users#account'
+  get '/users/account', to: 'admin/users#show'
+  # get '/users/account/edit', to: 'admin/users#account_edit'
+  get '/users/account/edit', to: 'admin/users#edit'
+  post '/users/account/edit', to: 'admin/users#update'
+  # get '/users/profile', to: 'admin/users#profile'
   get '/users/profile', to: 'admin/users#profile'
   post '/users/profile', to: 'admin/users#profile_update'
   

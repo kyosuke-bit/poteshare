@@ -1,11 +1,11 @@
 class Admin::UsersController < ApplicationController
+  skip_before_action :login_required
+  
   def index
     @users = User.all
-    # @user = current_user
   end
 
   def show
-    # @user = User.find(params[:id])
     @user = User.find(session[:user_id])
   end
   
@@ -14,14 +14,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(session[:user_id])
   end
   
   def create
     @user = User.new(user_params)
-  
+    
     if @user.save
-      redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を登録しました。"
+      redirect_to root_path, notice: "アカウントを登録しました。"
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     
     if @user.update(user_params)
-      redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました。"
+      redirect_to admin_user_url(@user), notice: "アカウントを更新しました。"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to admin_user_url, notice: "ユーザー「#{@user.name}」を削除しました。"
+    redirect_to admin_user_url, notice: "アカウントを削除しました。"
   end
   
   def profile
@@ -48,29 +48,15 @@ class Admin::UsersController < ApplicationController
   end
   
   def profile_update
-    user = User.find(session[:user_id])
-    user.update!(user_params)
+    @user = User.find(session[:user_id])
+    @user.update!(params.permit(:name, :icon, :introduction))
     redirect_to users_profile_path, notice: "プロフィールを更新しました。"
-  end
-  
-  def account
-    @user = User.find(session[:user_id])
-  end
-  
-  def account_edit
-    @user = User.find(session[:user_id])
-  end
-  
-  def account_update
-    user = User.find(session[:user_id])
-    user.update!(user_params)
-    redirect_to users_account_path, notice: "アカウントを更新しました。"
   end
 
   private
   
   def user_params
-    params.permit(:name, :email, :password, :password_confirmation, :icon, :introduction)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :icon, :introduction)
   end
 
 end
