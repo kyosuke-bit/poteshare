@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    title
+      | Poteshare
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .header
+      .app-title.navbar.navbar-expand-md.navbar-dark.bg-dark
+        .header-left-nav
+          a href="/rooms" 
+           img alt="サイトのロゴ画像" src="https://presite-potepancamp-rails-02.herokuapp.com/assets/logo.png" /
+          
+        .search_box.area
+          = form_tag(rooms_search_path, method: :get, enforce_utf8: false) do
+            = text_field_tag :adress, params[:adress], placeholder: "エリア", class: 'col-sm-12 col-form-label'
+        .search_box.kwd
+          = form_tag(rooms_search_path, method: :get, enforce_utf8: false) do
+            = text_field_tag :room_introduction, params[:room_introduction], placeholder: "キーワード", class: 'col-sm-12 col-form-label'
+        
+        
+        
+        ul.navbar-nav.ml-auto
+          - if current_user
+            li.nav-item= link_to 'ルーム登録', new_room_path, class: 'nav-link'
+            li.nav-item= link_to '予約済みルーム一覧', reservations_path, class: 'nav-link'
+            li.nav-item= link_to '登録済みルーム一覧', '/rooms/posts', class: 'nav-link'
+            li.nav-item= link_to '設定', users_account_path, class: 'nav-link'
+            li.nav-item= link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link'
+            /li.nav-item= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link'
+          
+          - else
+            li.nav-item= link_to 'ログイン', login_path, class: 'nav-link'
+            li.nav-item= link_to '登録する', new_admin_user_path, class: 'btn btn-primary'
+      
+    .container
+      - if flash.notice.present?
+        .alert.alert-success= flash.notice
+    = yield

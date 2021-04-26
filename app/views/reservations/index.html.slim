@@ -1,0 +1,33 @@
+h1 予約一覧
+
+.mb-3
+table.table.table-hover
+    thead.thead-defalut
+        tr
+            th= Reservation.human_attribute_name(:ルーム画像)
+            th= Reservation.human_attribute_name(:ルーム名)
+            th= Reservation.human_attribute_name(:ルーム紹介)
+            th= Reservation.human_attribute_name(:合計金額)
+            th= Reservation.human_attribute_name(:開始日)
+            th= Reservation.human_attribute_name(:終了日)
+            /th= Reservation.human_attribute_name(:room_id)
+            
+            /th= Reservation.human_attribute_name(:user_id)
+            
+            th= Reservation.human_attribute_name(:予約確定日)
+        tbody
+            - @reservations.each do |reservation|
+                tr
+                    td= link_to image_tag(reservation.room.image), room_path(reservation.room_id)
+                    td= link_to (reservation.room_name), room_path(reservation.room_id)
+                    td= reservation.room_introduction
+                    td= reservation.total_amount
+                    td= reservation.start_date
+                    td= reservation.end_date
+                    /td= link_to (reservation.room_id), room_path(reservation.room_id)
+                    
+                    /td= reservation.user_id
+                    
+                    td= reservation.created_at
+                    td
+                        = link_to '削除', reservation, method: :delete, date: {confirm: "予約「#{reservation.id}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
